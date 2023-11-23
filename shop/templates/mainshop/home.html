@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <script>
+        function increaseCounter() {
+        var counter = document.getElementById("badge-counter");
+        counter.textContent = parseInt(counter.textContent) + 1;
+    }
+    </script>
+
+    {% for object in product %}
+
+
+        <div class="container px-4">
+          <div class="row gx-5">
+            <div class="col">
+                 <div class="p-3 border bg-light ">
+
+                        <h2 style="padding: 20px;">{{ object.title }}<br>
+                            <a href="{% url 'detail' object.pk %}"><img style="padding: 20px;" src = '{{object.image.url}}' alt = ''></a><br>
+                        <p>{{ object.description }}</p><p> ریال {{ object.price}} </p>
+                            <p>{{ object.cat }}</p>
+                            <a style="text-align:center" class = "btn btn-success" onclick="increaseCounter()">افزودن به سبد خرید</a>
+                 </div>
+            </div>
+          </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock content %}
