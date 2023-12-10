@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load humanizelib %}
+{% load static %}
+
+{% block content %}
+
+
+<header class="bg-dark py-2" xmlns="http://www.w3.org/1999/html">
+            <div class="container px-4 px-lg-5 my-2">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">فروشگاه جاندار</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">نتیجه جست و جو</p>
+                </div>
+            </div>
+</header>
+    <div class="container px-4 px-lg-5 mt-5">
+       <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-4">
+                {% for item in all_search_results %}
+                      <img src="{{item.image.url}}" class="img-fluid rounded-start" alt="...">
+
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">{{item.title}}</h5>
+                        {% if item.is_sale %}
+                          <span class="text-muted text-decoration-line-through">قیمت: {{ item.price | intcomma}} ریال</span><br>
+                          قیمت: {{ item.sale_price | intcomma}} ریال
+                        {% else %}
+                          <p class="card-text">قیمت: {{item.price | intcomma}} ریال</p>
+                        {% endif %}
+
+                            {% if item.is_exist %}
+                                {% if user.is_authenticated %}
+                                    <div  style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-success btn-rounded" href="{% url 'add-to-cart' item.id %}">افزودن به سبد خرید</a></div>
+                                    <div class="text-center" style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-outline-dark mt-auto " href="{% url 'detail' item.pk %}">نمایش جزئیات</a></div>
+                                {% else %}
+                                    <div class="form-group">
+                                        <div class="text-center" style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-outline-dark mt-auto button1" href="{% url 'detail' item.id %}">نمایش جزئیات</a></div><br>
+                                        <a type="submit" class="btn btn-primary" href="{% url 'login' %}">برای خرید ابتدا وارد حساب کاربری شوید</a>
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <div class="text-center" style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-outline-dark mt-auto button1" href="{% url 'detail' item.id %}">نمایش جزئیات</a></div><br>
+                                <div ><a class="btn btn-danger mt-auto">ناموجود!</a></div>
+                            {% endif %}
+                    </div>
+                        <br>
+                {% empty %}
+                      <h2>نتیجه ای یافت نشد</h2>
+                {% endfor %}
+
+
+              <a class="btn btn-primary btn-rounded" href="{% url 'home' %}">بازگشت به صفحه اصلی</a>
+              </div>
+            </div>
+          </div>
+       </div>
+    </div>
+<br><br>
+
+{% endblock %}

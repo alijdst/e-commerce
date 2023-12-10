@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanizelib %}
+
+{% block content %}
+
+
+
+        <!-- Header-->
+         <header class="bg-dark py-2">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">فروشگاه جاندار</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">قیمت های استثنایی</p>
+                </div>
+                <div class="alert alert-warning alert-dismissable" style="display: none;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                         برای خرید وارد حساب کاربری شوید
+                </div>
+            </div>
+
+                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+                <div class="container">
+
+                    <br/>
+                    <div class="row justify-content-center">
+                                        <div class="col-12 col-md-10 col-lg-8">
+                                            <form class="card card-sm" method="GET" action="{% url "post_search" %}">
+                                                <div class="card-body row no-gutters align-items-center">
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-search h4 text-body"></i>
+                                                    </div>
+                                                    <!--end of col-->
+                                                    <div class="col">
+                                                            <input class="form-control form-control-lg form-control-borderless" type="search" name="search" placeholder="کالای مورد نظر را جست و جو کنید">
+
+                                                    </div>
+                                                    <!--end of col-->
+                                                    <div class="col-auto">
+                                                        <button class="btn btn-lg btn-success" type="submit">جست و جو</button>
+                                                    </div>
+                                                    <!--end of col-->
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--end of col-->
+                    </div>
+                </div>
+         </header>
+
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center product_data">
+
+                    {% for item in product %}
+
+
+                        {% if item.is_sale %}
+
+                            <div class="col mb-5" >
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">تخفیف ویژه</div>
+                                    <img class="card-img-top" src="{{item.image.url}}" alt="..." />
+
+                                    <!-- Product details-->
+                                    <div class="card-body p-4 ">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">{{ item.title }}</h5>
+                                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                            {% with ''|center:item.star as range %}
+                                                {% for _ in range %}
+                                                        <div class="bi-star-fill"></div>
+                                                {% endfor %}
+                                            {% endwith %}
+                                            </div>
+                                            <!-- Product price-->
+                                            <span class="text-muted text-decoration-line-through">{{ item.price | intcomma}} ریال</span><br>
+                                            {{ item.sale_price | intcomma}} ریال
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent " style="width: 100%; display: table;">
+                                        {% if item.is_exist %}
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ item.id }}" class="prodt_id">
+                                            <div class="text-center" style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-outline-dark mt-auto button1" href="{% url 'detail' item.id %}">نمایش جزئیات</a></div>
+                                            {% if user.is_authenticated %}
+                                                <div  style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-success btn-rounded button1" href="{% url 'add-to-cart' item.id %}">افزودن به سبد خرید</a></div>
+                                            {% else %}
+
+                                                <div class="container" style="width: 50%; display: table-cell; padding:5px;">
+                                                    <button class="btn btn-success btn-rounded button1">افزودن به سبد خرید</button>
+                                                </div>
+
+
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="text-center" style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-outline-dark mt-auto button1" href="{% url 'detail' item.pk %}">نمایش جزئیات</a></div>
+                                            <div class="text-center"><a class="btn btn-danger mt-auto" href="#">ناموجود!</a></div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="{{item.image.url}}" alt="..." />
+
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">{{ item.title }}</h5>
+                                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                            {% with ''|center:item.star as range %}
+                                                {% for _ in range %}
+                                                        <div class="bi-star-fill"></div>
+                                                {% endfor %}
+                                            {% endwith %}
+                                            </div>
+                                            <!-- Product price-->
+                                            {{ item.price | intcomma}} ریال
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" style="width: 100%; display: table;">
+                                        {% if item.is_exist %}
+                                                {% csrf_token %}
+                                                <div class="text-center" style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-outline-dark mt-auto button1" href="{% url 'detail' item.pk %}">نمایش جزئیات</a></div>
+                                                {% if user.is_authenticated %}
+                                                <div  style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-success btn-rounded button1" href="{% url 'add-to-cart' item.id %}">افزودن به سبد خرید</a></div>
+                                            {% else %}
+                                                <div class="container" style="width: 50%; display: table-cell; padding:5px;">
+                                                    <button class="btn btn-success btn-rounded button1">افزودن به سبد خرید</button>
+                                                </div>
+                                            {% endif %}
+
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" style="width: 100%; display: table;">
+                                        {% else %}
+                                            <div class="text-center" style="width: 50%; display: table-cell; padding:5px;"><a class="btn btn-outline-dark mt-auto button1" href="{% url 'detail' item.pk %}">نمایش جزئیات</a></div>
+                                            <div class="text-center"><a class="btn btn-danger mt-auto button1" href="#">ناموجود!</a></div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+<script src="{% static 'main/js/cart.js' %}" type="text/javascript"></script>
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock %}
