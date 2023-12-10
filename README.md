@@ -20,3 +20,17 @@ Now active your virtual environment:
 ```
 env\Scripts\activate
 ```
+
+Clone the project:
+```
+https://github.com/alijdst/e-commerce.git
+```
+
+Now install packages you need for this project from requirements.txt on your own virtual environment:
+```
+pip install -r requirements.txt
+```
+If your default python version is lower than 3.8 use this:
+```
+py -3.9 -m pip install -r requirements.txt
+```
