@@ -34,3 +34,8 @@ If your default python version is lower than 3.8 use this:
 ```
 py -3.9 -m pip install -r requirements.txt
 ```
+
+Now run the project:
+```
+python manage.py runserver
+```
