@@ -26,7 +26,11 @@ Clone the project:
 https://github.com/alijdst/e-commerce.git
 ```
 
-Now install packages you need for this project from requirements.txt on your own virtual environment:
+First check you are in the project directory:
+```
+cd e-commerce
+```
+then install packages you need for this project from requirements.txt on your own virtual environment:
 ```
 pip install -r requirements.txt
 ```
