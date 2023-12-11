@@ -15,6 +15,11 @@ Install the virtual environment:
 ```
 python3.9 -m venv env
 ```
+Also you can use this for install the virtual environment:
+```
+pip install virtualenv
+virtualenv env
+```
 
 Now active your virtual environment:
 ```
