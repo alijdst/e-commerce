@@ -11,7 +11,7 @@ An online shop for providing and selling products to customers which consists of
   * Change password
   * Revceive the reset paswword email
 
-* The Cart model handle products that user selected to buy
+* The Cart model handles products that user selected to buy
   * Show number of items in a badget
   * Increase and decrease quantity
   * Total price
