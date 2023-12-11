@@ -4,12 +4,12 @@ An online shop for providing and selling products to customers which consists of
 * The shop is connected to Iranian banks gateway and the user can make online purchases
 * Admin can check the buy process and tracking code with additional model(Payment) and default Iranian bank gateway model
 * With custom user model(Account) user can create, sign-in and sign-out his/her account
+* Sort products by category
 * Profile
   * Edit information
   * Profile image
   * Change password
   * Revceive the reset paswword email
-* Sort products by category
 
 * The Cart model handle products that user selected to buy
   * Show number of items in a badget
