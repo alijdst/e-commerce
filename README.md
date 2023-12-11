@@ -6,6 +6,8 @@
 
 # e-commerce
 An online shop for providing and selling products to customers which consists of user profiles, product details, comments and other features.
+![GitHub](https://img.shields.io/github/license/alijdst/e-commerce)
+![GitHub](https://img.shields.io/pypi/pyversions/shop.svg)
 
 * The shop is connected to Iranian banks gateway and the user can make online purchases
 * Admin can check the buy process and tracking code with additional model(Payment) and default Iranian bank gateway model
