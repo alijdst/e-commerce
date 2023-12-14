@@ -6,6 +6,7 @@
 
 # e-commerce
 An online shop for providing and selling products to customers which consists of user profiles, product details, comments and other features.
+
 ![GitHub](https://img.shields.io/github/license/alijdst/e-commerce)
 ![GitHub](https://img.shields.io/pypi/pyversions/shop.svg)
 
